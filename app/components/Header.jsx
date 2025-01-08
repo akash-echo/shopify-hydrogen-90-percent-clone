@@ -70,22 +70,7 @@ export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
             : 'bg-white border-gray-100'
         }`}
       >
-        <div className="container mx-auto max-w-[calc(100%-80px)]">
-          {/* Mobile logo (550px and below) */}
-          <div
-            className={`hidden max-[550px]:block text-center border-b border-gray-100 transition-all duration-300 ease-in-out ${
-              isScrolled ? 'py-1' : 'py-2'
-            }`}
-          >
-            <NavLink
-              prefetch="intent"
-              to="/"
-              className="text-2xl tracking-normal inline-block"
-            >
-              <h1 className="font-medium my-0">90 PERCENT</h1>
-            </NavLink>
-          </div>
-
+        <div className="container mx-auto max-w-[calc(100%-80px)] max-[550px]:max-w-[100%] ">
           {/* Header Content */}
           <div
             className={`flex items-center justify-between px-4 sm:px-6 transition-all duration-300 ease-in-out ${
@@ -111,11 +96,11 @@ export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
             <NavLink
               prefetch="intent"
               to="/"
-              className={`tracking-wider text-center max-[550px]:hidden absolute mr-[15%] left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 lg:text-left transition-all duration-300 ease-in-out ${
+              className={`tracking-wider text-center absolute mr-[15%] left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 lg:text-left transition-all duration-300 ease-in-out ${
                 isScrolled ? 'text-xl sm:text-2xl' : 'text-2xl sm:text-[28px]'
               }`}
             >
-              <h1 className="font-medium">90 PERCENT</h1>
+              <h1 className="font-medium text-lg sm:text-2xl">90 PERCENT</h1>
             </NavLink>
 
             {/* CTAS */}
@@ -253,7 +238,7 @@ function HeaderCtas({isLoggedIn, cart}) {
       className="flex items-center space-x-1 sm:space-x-2 lg:space-x-5"
       role="navigation"
     >
-      <NavLink prefetch="intent" to="/account" className="p-2">
+      <NavLink prefetch="intent" to="/account" className="p-2 hidden sm:block">
         <span className="sr-only">Account</span>
         <User className="w-5 h-5" />
       </NavLink>
