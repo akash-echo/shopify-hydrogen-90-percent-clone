@@ -1,32 +1,21 @@
-// import {useShopQuery, gql} from '@shopify/hydrogen';
-
+import {useLoaderData} from '@remix-run/react';
 import {NavLink} from '@remix-run/react';
 
 const HeroBanner = () => {
-  // const {data} = useShopQuery({
-  //   query: gql`
-  //     query HeroBanner {
-  //       collection(handle: "example-collection-handle") {
-  //         image {
-  //           url
-  //           altText
-  //         }
-  //       }
-  //     }
-  //   `,
-  // });
+  const {bannerImage} = useLoaderData();
 
-  // const heroImage = data.collection.image;
+  if (!bannerImage) {
+    return <div>Loading banner...</div>;
+  }
 
   return (
     <div className="hero-banner">
       <NavLink>
-        <img
-          // src={heroImage?.url}
-          src="images/hero-banner-img.jpg"
-          alt="Hero banner"
-          className="w-full h-auto object-cover"
-        />
+        {bannerImage ? (
+          <img src={bannerImage?.url} alt="Homepage Banner" />
+        ) : (
+          <p>Banner image not found.</p>
+        )}
       </NavLink>
     </div>
   );

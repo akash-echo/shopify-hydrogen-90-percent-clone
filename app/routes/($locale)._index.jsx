@@ -1,9 +1,9 @@
-import {defer} from '@shopify/remix-oxygen';
+import {defer, json} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
-import {Image, Money} from '@shopify/hydrogen';
+import {Image, Money, cartGetDefault} from '@shopify/hydrogen';
 import MainContent from '~/components/custom/MainContent';
-// import MainContent from '~/components/MainContent';
+// import {BANNER_IMAGE_QUERY} from '~/graphql/bannerImage.query';
 
 /**
  * @type {MetaFunction}
@@ -31,14 +31,77 @@ export async function loader(args) {
  * @param {LoaderFunctionArgs}
  */
 async function loadCriticalData({context}) {
-  const [{collections}] = await Promise.all([
-    context.storefront.query(FEATURED_COLLECTION_QUERY),
-    // Add other queries here, so that they are loaded in parallel
-  ]);
-
-  return {
-    featuredCollection: collections.nodes[0],
+  const handleInput = {
+    handle: 'banner_image',
+    type: 'homepage_banner',
   };
+  try {
+    const [collectionsData, {metaobject}] = await Promise.all([
+      context.storefront.query(FEATURED_COLLECTION_QUERY),
+      context.storefront.query(
+        `query GetHomepageBanner($handleInput: MetaobjectHandleInput!) {
+        metaobject(handle: $handleInput) {
+          fields {
+            key
+            value
+            reference {
+              ... on MediaImage {
+                id
+                image {
+                  url
+                  altText
+                  width
+                  height
+                }
+              }
+            }
+          }
+        }
+      }
+      `,
+        {variables: {handleInput}},
+      ),
+    ]);
+
+    const bannerImageField = metaobject?.fields?.find(
+      (field) => field.key === 'homepage_banner',
+    );
+
+    // Get the image URL from reference or value
+    const mediaImageId = JSON.parse(bannerImageField?.value)[0];
+
+    // Fetch the Media Image details using the ID
+    const {node} = await context.storefront.query(
+      `
+    query GetBannerImage($id: ID!) {
+      node(id: $id) {
+        ... on MediaImage {
+          image {
+            url
+            altText
+            width
+            height
+          }
+        }
+      }
+    }
+    `,
+      {variables: {id: mediaImageId}},
+    );
+
+    const bannerImage = node?.image;
+
+    return {
+      featuredCollection: collectionsData.collections.nodes[0],
+      bannerImage: bannerImage,
+    };
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return {
+      featuredCollection: null,
+      bannerImage: null,
+    };
+  }
 }
 
 /**
