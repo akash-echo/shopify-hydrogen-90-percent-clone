@@ -1,13 +1,15 @@
-import {NavLink} from '@remix-run/react';
 import React from 'react';
+import {NavLink, useLoaderData} from '@remix-run/react';
 
 const SignatureSweatSection = () => {
+  const {signatureSweat} = useLoaderData();
+
   return (
     <div className="w-full flex justify-center mb-20">
       <div className="w-[465px]">
         <img
-          src="images/half-zip.jpg"
-          alt="womens new in image"
+          src={signatureSweat?.url}
+          alt="womens signature sweat image"
           className="w-[100%] bg-cover"
         />
 

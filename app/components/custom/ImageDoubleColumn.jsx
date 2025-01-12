@@ -1,5 +1,5 @@
-import {NavLink} from '@remix-run/react';
 import React from 'react';
+import {NavLink, useLoaderData} from '@remix-run/react';
 
 const ImageColumn = ({image, link}) => {
   return (
@@ -15,7 +15,7 @@ const ImageColumn = ({image, link}) => {
         </span>
         <img
           src={image}
-          alt="womens new in image"
+          alt="womens collection image"
           className="w-[100%] h-full bg-cover rounded-none"
         />
       </NavLink>
@@ -24,10 +24,12 @@ const ImageColumn = ({image, link}) => {
 };
 
 const ImageDoubleColumn = () => {
+  const {womensNewInImage, shopBestsellers} = useLoaderData();
+
   return (
     <div className="container flex mx-[80px] mb-24 gap-1">
-      <ImageColumn image="images/womens-new-in.jpg" link="Shop New In" />
-      <ImageColumn image="images/bestsellers.jpg" link="Shop Bestsellers" />
+      <ImageColumn image={womensNewInImage?.url} link="Shop New In" />
+      <ImageColumn image={shopBestsellers?.url} link="Shop Bestsellers" />
     </div>
   );
 };

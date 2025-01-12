@@ -3,7 +3,7 @@ import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Image, Money, cartGetDefault} from '@shopify/hydrogen';
 import MainContent from '~/components/custom/MainContent';
-// import {BANNER_IMAGE_QUERY} from '~/graphql/bannerImage.query';
+import {fetchMetaobjectImage} from '~/utils/metaobjectUtils';
 
 /**
  * @type {MetaFunction}
@@ -31,75 +31,55 @@ export async function loader(args) {
  * @param {LoaderFunctionArgs}
  */
 async function loadCriticalData({context}) {
-  const handleInput = {
-    handle: 'banner_image',
-    type: 'homepage_banner',
-  };
+  const handleInputs = [
+    {
+      handle: 'banner_image',
+      type: 'homepage_banner',
+    },
+    {
+      handle: 'shop_new_in',
+      type: 'shop_new_in',
+    },
+    {
+      handle: 'shop_bestsellers',
+      type: 'shop_bestsellers',
+    },
+    {
+      handle: 'signature_sweat',
+      type: 'signature_sweat',
+    },
+  ];
+
   try {
-    const [collectionsData, {metaobject}] = await Promise.all([
+    const [
+      collectionsData,
+      bannerImage,
+      womensNewInImage,
+      shopBestsellers,
+      signatureSweat,
+    ] = await Promise.all([
       context.storefront.query(FEATURED_COLLECTION_QUERY),
-      context.storefront.query(
-        `query GetHomepageBanner($handleInput: MetaobjectHandleInput!) {
-        metaobject(handle: $handleInput) {
-          fields {
-            key
-            value
-            reference {
-              ... on MediaImage {
-                id
-                image {
-                  url
-                  altText
-                  width
-                  height
-                }
-              }
-            }
-          }
-        }
-      }
-      `,
-        {variables: {handleInput}},
-      ),
+      fetchMetaobjectImage(context, handleInputs[0], 'homepage_banner'),
+      fetchMetaobjectImage(context, handleInputs[1], 'shop_new_in_image'),
+      fetchMetaobjectImage(context, handleInputs[2], 'shop_bestsellers_image'),
+      fetchMetaobjectImage(context, handleInputs[3], 'signature_sweat'),
     ]);
-
-    const bannerImageField = metaobject?.fields?.find(
-      (field) => field.key === 'homepage_banner',
-    );
-
-    // Get the image URL from reference or value
-    const mediaImageId = JSON.parse(bannerImageField?.value)[0];
-
-    // Fetch the Media Image details using the ID
-    const {node} = await context.storefront.query(
-      `
-    query GetBannerImage($id: ID!) {
-      node(id: $id) {
-        ... on MediaImage {
-          image {
-            url
-            altText
-            width
-            height
-          }
-        }
-      }
-    }
-    `,
-      {variables: {id: mediaImageId}},
-    );
-
-    const bannerImage = node?.image;
 
     return {
       featuredCollection: collectionsData.collections.nodes[0],
-      bannerImage: bannerImage,
+      bannerImage,
+      womensNewInImage,
+      shopBestsellers,
+      signatureSweat,
     };
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('Error loading critical data:', error);
     return {
       featuredCollection: null,
       bannerImage: null,
+      womensNewInImage: null,
+      shopBestsellers: null,
+      signatureSweat: null,
     };
   }
 }

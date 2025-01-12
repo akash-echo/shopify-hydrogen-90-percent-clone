@@ -1,5 +1,4 @@
-import {useLoaderData} from '@remix-run/react';
-import {NavLink} from '@remix-run/react';
+import {NavLink, useLoaderData} from '@remix-run/react';
 
 const HeroBanner = () => {
   const {bannerImage} = useLoaderData();
