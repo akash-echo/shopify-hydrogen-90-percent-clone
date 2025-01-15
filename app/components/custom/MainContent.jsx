@@ -15,7 +15,7 @@ const MainContent = () => {
       <TextWithLinkSection
         text="Everyday pieces with a twist. Made with care for people and the planet."
         linkName="Shop All"
-        linkUrl="/"
+        linkUrl="/collections/women-styles-all"
       />
 
       <ImageDoubleColumn />
@@ -26,7 +26,7 @@ const MainContent = () => {
       <TextWithLinkSection
         text="Our Essentials form a well-curated dress code of layering foundations. Trans-seasonal, considered and carefully crafted pieces in elevated, responsible materials."
         linkName="Shop The Essentials"
-        linkUrl="/"
+        linkUrl="/collections/sustainable-perennial-wardobe"
       />
 
       <ManufactureVideoSection />
@@ -35,7 +35,7 @@ const MainContent = () => {
       <TextWithLinkSection
         text="Each purchase you make helps us share 90% of our profits between our people and the causes we believe in. We’re cultivating a positive culture beyond our clothing, pioneering a new business ethos rooted in consciousness."
         linkName="Our Way"
-        linkUrl="/"
+        linkUrl="/pages/new-our-way"
       />
     </div>
   );

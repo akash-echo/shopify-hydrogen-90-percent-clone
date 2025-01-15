@@ -1,15 +1,16 @@
 import {NavLink, useLoaderData} from '@remix-run/react';
+import CustomLoader from './CustomLoader';
 
 const HeroBanner = () => {
   const {bannerImage} = useLoaderData();
 
   if (!bannerImage) {
-    return <div>Loading banner...</div>;
+    return <CustomLoader />;
   }
 
   return (
     <div className="hero-banner">
-      <NavLink>
+      <NavLink prefetch="intent" to="/collections/women-styles-all">
         {bannerImage ? (
           <img src={bannerImage?.url} alt="Homepage Banner" />
         ) : (
