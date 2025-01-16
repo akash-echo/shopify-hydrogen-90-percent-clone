@@ -4,6 +4,7 @@ import {Suspense} from 'react';
 import {Image, Money, cartGetDefault} from '@shopify/hydrogen';
 import MainContent from '~/components/custom/MainContent';
 import {fetchMetaobjectImage} from '~/utils/metaobjectUtils';
+import {fetchMetaobjectUrlData} from '~/utils/fetchMetaobjectUrlData';
 
 /**
  * @type {MetaFunction}
@@ -48,6 +49,10 @@ async function loadCriticalData({context}) {
       handle: 'signature_sweat',
       type: 'signature_sweat',
     },
+    {
+      handle: 'signature-half-zip-url-title',
+      type: 'signature_half_zip_url',
+    },
   ];
 
   try {
@@ -57,12 +62,17 @@ async function loadCriticalData({context}) {
       womensNewInImage,
       shopBestsellers,
       signatureSweat,
+      signatureHalfZipUrl,
     ] = await Promise.all([
       context.storefront.query(FEATURED_COLLECTION_QUERY),
       fetchMetaobjectImage(context, handleInputs[0], 'homepage_banner'),
       fetchMetaobjectImage(context, handleInputs[1], 'shop_new_in_image'),
       fetchMetaobjectImage(context, handleInputs[2], 'shop_bestsellers_image'),
       fetchMetaobjectImage(context, handleInputs[3], 'signature_sweat'),
+      fetchMetaobjectUrlData(context, handleInputs[4], [
+        'signature_half_zip_url',
+        'signature_half_zip_title',
+      ]),
     ]);
 
     return {
@@ -71,6 +81,7 @@ async function loadCriticalData({context}) {
       womensNewInImage,
       shopBestsellers,
       signatureSweat,
+      signatureHalfZipUrl,
     };
   } catch (error) {
     console.error('Error loading critical data:', error);
@@ -80,6 +91,7 @@ async function loadCriticalData({context}) {
       womensNewInImage: null,
       shopBestsellers: null,
       signatureSweat: null,
+      signatureHalfZipUrl: null,
     };
   }
 }
@@ -109,8 +121,8 @@ export default function Homepage() {
   const data = useLoaderData();
   return (
     <div className="home">
-      <FeaturedCollection collection={data.featuredCollection} />
-      <RecommendedProducts products={data.recommendedProducts} />
+      {/* <FeaturedCollection collection={data.featuredCollection} />
+      <RecommendedProducts products={data.recommendedProducts} /> */}
 
       <MainContent />
     </div>

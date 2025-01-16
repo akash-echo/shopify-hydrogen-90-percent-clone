@@ -3,11 +3,14 @@ import {NavLink, useLoaderData} from '@remix-run/react';
 import CustomLoader from './CustomLoader';
 
 const SignatureSweatSection = () => {
-  const {signatureSweat} = useLoaderData();
+  const {signatureSweat, signatureHalfZipUrl} = useLoaderData();
 
-  if (!signatureSweat) {
+  if (!signatureSweat || !signatureHalfZipUrl) {
     return <CustomLoader />;
   }
+
+  const {signature_half_zip_url, signature_half_zip_title} =
+    signatureHalfZipUrl;
 
   return (
     <div className="w-full flex justify-center mb-20">
@@ -22,9 +25,9 @@ const SignatureSweatSection = () => {
           className={`text-[12px] py-2 block text-gray-500 uppercase font-mono underline tracking-wider`}
           end
           prefetch="intent"
-          to="/products/signature-half-zip-sweat-in-grey-marl-essential24"
+          to={signature_half_zip_url}
         >
-          SIGNATURE HALF ZIP SWEAT IN GREY
+          {signature_half_zip_title}
         </NavLink>
       </div>
     </div>
