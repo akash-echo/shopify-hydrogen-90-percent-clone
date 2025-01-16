@@ -3,7 +3,10 @@ import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Image, Money, cartGetDefault} from '@shopify/hydrogen';
 import MainContent from '~/components/custom/MainContent';
-import {fetchMetaobjectImage} from '~/utils/metaobjectUtils';
+import {
+  fetchMetaobjectImage,
+  fetchMetaobjectVideo,
+} from '~/utils/metaobjectUtils';
 import {fetchMetaobjectUrlData} from '~/utils/fetchMetaobjectUrlData';
 
 /**
@@ -32,28 +35,32 @@ export async function loader(args) {
  * @param {LoaderFunctionArgs}
  */
 async function loadCriticalData({context}) {
-  const handleInputs = [
-    {
+  const handleInputs = {
+    hpBannerImage: {
       handle: 'banner_image',
       type: 'homepage_banner',
     },
-    {
+    shopNewIn: {
       handle: 'shop_new_in',
       type: 'shop_new_in',
     },
-    {
+    shopBestsellers: {
       handle: 'shop_bestsellers',
       type: 'shop_bestsellers',
     },
-    {
+    signatureSweat: {
       handle: 'signature_sweat',
       type: 'signature_sweat',
     },
-    {
+    signatureHalfZipUrl: {
       handle: 'signature-half-zip-url-title',
       type: 'signature_half_zip_url',
     },
-  ];
+    manufactureVideo: {
+      handle: 'manufacture-video',
+      type: 'manufacture_video',
+    },
+  };
 
   try {
     const [
@@ -63,25 +70,48 @@ async function loadCriticalData({context}) {
       shopBestsellers,
       signatureSweat,
       signatureHalfZipUrl,
+      manufactureSection,
     ] = await Promise.all([
       context.storefront.query(FEATURED_COLLECTION_QUERY),
-      fetchMetaobjectImage(context, handleInputs[0], 'homepage_banner'),
-      fetchMetaobjectImage(context, handleInputs[1], 'shop_new_in_image'),
-      fetchMetaobjectImage(context, handleInputs[2], 'shop_bestsellers_image'),
-      fetchMetaobjectImage(context, handleInputs[3], 'signature_sweat'),
-      fetchMetaobjectUrlData(context, handleInputs[4], [
+      fetchMetaobjectImage(
+        context,
+        handleInputs['hpBannerImage'],
+        'homepage_banner',
+      ),
+      fetchMetaobjectImage(
+        context,
+        handleInputs['shopNewIn'],
+        'shop_new_in_image',
+      ),
+      fetchMetaobjectImage(
+        context,
+        handleInputs['shopBestsellers'],
+        'shop_bestsellers_image',
+      ),
+      fetchMetaobjectImage(
+        context,
+        handleInputs['signatureSweat'],
+        'signature_sweat',
+      ),
+      fetchMetaobjectUrlData(context, handleInputs['signatureHalfZipUrl'], [
         'signature_half_zip_url',
         'signature_half_zip_title',
       ]),
+      fetchMetaobjectVideo(
+        context,
+        handleInputs['manufactureVideo'],
+        'manufacture_video',
+      ),
     ]);
 
     return {
-      featuredCollection: collectionsData.collections.nodes[0],
+      // featuredCollection: collectionsData.collections.nodes[0],
       bannerImage,
       womensNewInImage,
       shopBestsellers,
       signatureSweat,
       signatureHalfZipUrl,
+      manufactureSection,
     };
   } catch (error) {
     console.error('Error loading critical data:', error);
@@ -92,6 +122,7 @@ async function loadCriticalData({context}) {
       shopBestsellers: null,
       signatureSweat: null,
       signatureHalfZipUrl: null,
+      manufactureSection: null,
     };
   }
 }

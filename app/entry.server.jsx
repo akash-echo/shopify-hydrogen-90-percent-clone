@@ -22,6 +22,13 @@ export default async function handleRequest(
       checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
       storeDomain: context.env.PUBLIC_STORE_DOMAIN,
     },
+    defaultSrc: [
+      "'self'",
+      'https://cdn.shopify.com',
+      'https://shopify.com',
+      'https://90percent-clone.myshopify.com',
+      '*.myshopify.com',
+    ],
   });
 
   const body = await renderToReadableStream(

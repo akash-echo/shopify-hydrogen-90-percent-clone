@@ -66,3 +66,47 @@ export async function fetchMetaobjectImage(context, handleInput, fieldKey) {
         return null;
     }
 }
+
+export async function fetchMetaobjectVideo(context, handleInput, fieldKey) {
+    try {
+        // Query the metaobject
+        const { metaobject } = await context.storefront.query(
+            `query GetMetaobject($handleInput: MetaobjectHandleInput!) {
+          metaobject(handle: $handleInput) {
+            fields {
+              key
+              value
+              reference {
+                ... on Video {
+                  id
+                  sources {
+                    url
+                    mimeType
+                  }
+                }
+              }
+            }
+          }
+        }`,
+            { variables: { handleInput } },
+        );
+
+        if (!metaobject) return null;
+
+        // Extract the desired field
+        const field = metaobject.fields.find((f) => f.key === fieldKey);
+        if (!field) return null;
+
+        // Resolve reference or value
+        const videoReference = field.reference;
+        if (!videoReference) return null;
+
+        return {
+            id: videoReference.id,
+            sources: videoReference.sources,
+        };
+    } catch (error) {
+        console.error('Error fetching metaobject video:', error);
+        return null;
+    }
+}
