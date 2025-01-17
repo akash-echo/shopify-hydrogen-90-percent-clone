@@ -52,15 +52,15 @@ export function Aside({children, heading, type}) {
   useEffect(() => {
     if (!expanded) return;
 
-    const handleEscape = (event = KeyboardEvent) => {
+    const handleEscape = (event) => {
       if (event.key === 'Escape') {
         close();
       }
-
-      document.addEventListener('keydown', handleEscape);
-
-      return () => document.removeEventListener('keydown', handleEscape);
     };
+
+    document.addEventListener('keydown', handleEscape);
+
+    return () => document.removeEventListener('keydown', handleEscape);
   }, [expanded, close]);
 
   return (
@@ -81,7 +81,7 @@ export function Aside({children, heading, type}) {
       >
         {/* Header */}
         <header className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-          <h3 className="text-xl text-blue-800">{heading}</h3>
+          <h3 className="text-md text-[#2B2725]">{heading}</h3>
 
           <button
             className="p-2 -mr-2 text-gray-400 hover:text-gray-500 transition-colors duration-300"

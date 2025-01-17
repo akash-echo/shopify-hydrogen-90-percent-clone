@@ -96,7 +96,7 @@ export function ProductForm({productOptions, selectedVariant}) {
         );
       })}
       <AddToCartButton
-        disabled={!selectedVariant || !selectedVariant.availableForSale}
+        // disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
           open('cart');
         }}
@@ -112,7 +112,7 @@ export function ProductForm({productOptions, selectedVariant}) {
             : []
         }
       >
-        {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
+        {!selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
       </AddToCartButton>
     </div>
   );

@@ -1,8 +1,7 @@
 import {useOptimisticCart} from '@shopify/hydrogen';
-import {Link} from '@remix-run/react';
-import {useAside} from '~/components/Aside';
-import {CartLineItem} from '~/components/CartLineItem';
+import {CartLineItem} from '~/components/cart/CartLineItem';
 import {CartSummary} from './CartSummary';
+import CartEmpty from './CartEmpty';
 
 /**
  * The main cart component that displays the cart items and summary.
@@ -44,22 +43,6 @@ export function CartMain({layout, cart: originalCart}) {
  *   layout?: CartMainProps['layout'];
  * }}
  */
-function CartEmpty({hidden = false}) {
-  const {close} = useAside();
-  return (
-    <div hidden={hidden}>
-      <br />
-      <p>
-        Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
-        started!
-      </p>
-      <br />
-      <Link to="/collections" onClick={close} prefetch="viewport">
-        Continue shopping →
-      </Link>
-    </div>
-  );
-}
 
 /** @typedef {'page' | 'aside'} CartLayout */
 /**
