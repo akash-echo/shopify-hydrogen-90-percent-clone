@@ -92,7 +92,7 @@ export function Aside({children, heading, type}) {
         </header>
 
         {/* Content */}
-        <main className="flex-1 overflow-y-auto">{children}</main>
+        <main className="flex-1 mx-6 overflow-y-auto">{children}</main>
       </aside>
     </div>
   );

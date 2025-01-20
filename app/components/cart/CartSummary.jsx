@@ -9,20 +9,30 @@ export function CartSummary({cart, layout}) {
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
 
   return (
-    <div aria-labelledby="cart-summary" className={className}>
-      <h4>Totals</h4>
-      <dl className="cart-subtotal">
-        <dt>Subtotal</dt>
-        <dd>
+    <div aria-labelledby="cart-summary" className={`py-8 ${className}`}>
+      {/* Subtotal */}
+      <div className="flex items-center mb-4">
+        <span className="text-gray-600 mr-5">Subtotal</span>
+        <span className="font-normal text-xl">
           {cart.cost?.subtotalAmount?.amount ? (
             <Money data={cart.cost?.subtotalAmount} />
           ) : (
             '-'
           )}
-        </dd>
-      </dl>
-      <CartDiscounts discountCodes={cart.discountCodes} />
-      <CartGiftCard giftCardCodes={cart.appliedGiftCards} />
+        </span>
+      </div>
+
+      {/* Extra Information */}
+      <div className="mt-6 space-y-2">
+        <div className="text-sm font-thin text-gray-800 border-b border-gray-200 pb-2">
+          <span>Compimentary gift wrapping available</span>
+        </div>
+        <div className="text-sm font-thin text-gray-800 border-b border-gray-200 pb-5 mt-0">
+          <span>Secure checkout powered by Shopify</span>
+        </div>
+      </div>
+
+      {/* Checkout button */}
       <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
     </div>
   );
@@ -34,12 +44,12 @@ function CartCheckoutActions({checkoutUrl}) {
   if (!checkoutUrl) return null;
 
   return (
-    <div>
+    <button className="w-full py-5 px-8 mt-5 text-white text-base tracking-wider transition-all duration-300 ease-in-out items-center flex justify-center gap-3 relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-white/10 before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700 disabled:before:hidden bg-gray-600 hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed">
       <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
+        <p>Go to Checkout</p>
       </a>
       <br />
-    </div>
+    </button>
   );
 }
 

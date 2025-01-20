@@ -12,6 +12,19 @@ img {
   border-radius: 4px;
 }
 
+@keyframes progress {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-progress {
+  animation: progress 2s ease-in-out infinite;
+}
+
 /*
 * --------------------------------------------------
 * Non anchor links
@@ -229,13 +242,35 @@ button.reset:hover:not(:has(> *)) {
 */
 .cart-main {
   height: 100%;
-  max-height: calc(100vh - var(--cart-aside-summary-height));
+  max-height: 70%;
   overflow-y: auto;
   width: auto;
 }
 
+/* Custom scrollbar */
+/* width */
+.cart-main::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.cart-main::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+/* Handle */
+.cart-main::-webkit-scrollbar-thumb {
+  background: #dddddd;
+  border-radius: 5px;
+}
+
 .cart-main.with-discount {
   max-height: calc(100vh - var(--cart-aside-summary-height-with-discount));
+}
+
+.cart-details {
+  margin-right: 10px;
 }
 
 .cart-line {
@@ -254,12 +289,11 @@ button.reset:hover:not(:has(> *)) {
 }
 
 .cart-summary-aside {
-  background: white;
-  border-top: 1px solid var(--color-dark);
+  background: #ffffff;
   bottom: 0;
   padding-top: 0.75rem;
   position: absolute;
-  width: calc(var(--aside-width) - 40px);
+  width: calc(var(--aside-width));
 }
 
 .cart-line-quantity {
