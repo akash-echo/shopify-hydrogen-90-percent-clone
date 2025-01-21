@@ -79,8 +79,9 @@ export default function Collection() {
 
   return (
     <div className="collection">
-      <h1>{collection.title}</h1>
-      <p className="collection-description">{collection.description}</p>
+      <p className="collection-description">
+        {collection.description} <sup>{collection.products.nodes.length}</sup>
+      </p>
       <PaginatedResourceSection
         connection={collection.products}
         resourcesClassName="products-grid"
@@ -113,6 +114,7 @@ export default function Collection() {
  */
 function ProductItem({product, loading}) {
   const variantUrl = useVariantUrl(product.handle);
+
   return (
     <Link
       className="product-item"
