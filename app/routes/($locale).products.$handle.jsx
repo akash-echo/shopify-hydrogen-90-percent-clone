@@ -103,26 +103,37 @@ export default function Product() {
   const {title, descriptionHtml} = product;
 
   return (
-    <div className="product">
+    <div className="product pt-36 mx-32">
       <ProductImage image={selectedVariant?.image} />
       <div className="product-main">
-        <h1>{title}</h1>
+        <h1 className="text-[#2b2725] text-2xl font-normal leading-8 tracking-wider uppercase">
+          {title}
+        </h1>
         <ProductPrice
           price={selectedVariant?.price}
           compareAtPrice={selectedVariant?.compareAtPrice}
         />
-        <br />
+
         <ProductForm
           productOptions={productOptions}
           selectedVariant={selectedVariant}
         />
-        <br />
-        <br />
-        <p>
-          <strong>Description</strong>
-        </p>
-        <br />
-        <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
+
+        {/* Extra Information */}
+        <div className="mt-6 space-y-2">
+          <div className="text-sm font-thin text-gray-800 border-b border-gray-200 pb-2">
+            <span>Compimentary gift wrapping available</span>
+          </div>
+          <div className="text-sm font-thin text-gray-800 border-b border-gray-200 pb-5 mt-0">
+            <span>Secure checkout powered by Shopify</span>
+          </div>
+        </div>
+
+        {/* Product Description */}
+        <div
+          className="text-[15px] text-[#2B2725] text-justify font-normal leading-6 my-8"
+          dangerouslySetInnerHTML={{__html: descriptionHtml}}
+        />
         <br />
       </div>
       <Analytics.ProductView
