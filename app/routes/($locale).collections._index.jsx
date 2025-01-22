@@ -90,6 +90,7 @@ function CollectionItem({collection, index}) {
             aspectRatio="1/1"
             data={collection.image}
             loading={index < 3 ? 'eager' : undefined}
+            sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" // Responsive sizing
           />
         )}
 
