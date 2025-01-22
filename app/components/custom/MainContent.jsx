@@ -26,7 +26,7 @@ const MainContent = () => {
       <TextWithLinkSection
         text="Our Essentials form a well-curated dress code of layering foundations. Trans-seasonal, considered and carefully crafted pieces in elevated, responsible materials."
         linkName="Shop The Essentials"
-        linkUrl="/collections/sustainable-perennial-wardobe"
+        linkUrl="/collections/shop-the-essentials"
       />
 
       <ManufactureVideoSection />

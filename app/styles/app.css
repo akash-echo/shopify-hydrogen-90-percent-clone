@@ -405,15 +405,60 @@ button.reset:hover:not(:has(> *)) {
 * routes/collections._index.tsx
 * --------------------------------------------------
 */
+
+.collections {
+  padding: 200px 0;
+}
+
+.collections h1 {
+  text-align: center;
+  margin-bottom: 50px;
+  text-transform: capitalize;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 36px;
+  text-align: center;
+  letter-spacing: -0.01em;
+  color: #2b2725;
+}
+
 .collections-grid {
   display: grid;
-  grid-gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(var(--grid-item-width), 1fr));
+  row-gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(0, var(--grid-item-width)));
   margin-bottom: 2rem;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.collection-item__wrapper {
+  max-width: 320px;
+  height: 520px;
 }
 
 .collection-item img {
-  height: auto;
+  width: 100%;
+  min-height: 470px;
+  border-radius: unset;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease-in-out;
+}
+
+.collection-item:hover img {
+  transform: scaleY(1.02); /* Slightly expand the image */
+}
+
+.collection-item__wrapper h5 {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1em;
+  margin-top: 20px;
+  text-transform: uppercase;
+  color: #2b2725;
+  letter-spacing: 0.1em;
 }
 
 /*
@@ -437,7 +482,7 @@ button.reset:hover:not(:has(> *)) {
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(var(--grid-item-width), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(0, var(--grid-item-width)));
   margin-bottom: 2rem;
   width: 95%;
   margin: 0 auto;

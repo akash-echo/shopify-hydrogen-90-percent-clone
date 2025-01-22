@@ -27,9 +27,11 @@ export function PaginatedResourceSection({
             ) : (
               resourcesMarkup
             )}
-            <NextLink>
-              {isLoading ? 'Loading...' : <span>Load more ↓</span>}
-            </NextLink>
+            <div className="w-full flex justify-center">
+              <NextLink className="w-[300px] inline-block my-10 py-3 px-4 font-medium text-lg text-center tracking-wider text-[#2b2725] capitalize border border-black">
+                {isLoading ? 'Loading...' : <span>Load more</span>}
+              </NextLink>
+            </div>
           </div>
         );
       }}

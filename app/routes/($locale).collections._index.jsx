@@ -52,7 +52,7 @@ export default function Collections() {
 
   return (
     <div className="collections">
-      <h1>Collections</h1>
+      <h1>Catalog</h1>
       <PaginatedResourceSection
         connection={collections}
         resourcesClassName="collections-grid"
@@ -77,22 +77,25 @@ export default function Collections() {
  */
 function CollectionItem({collection, index}) {
   return (
-    <Link
-      className="collection-item"
-      key={collection.id}
-      to={`/collections/${collection.handle}`}
-      prefetch="intent"
-    >
-      {collection?.image && (
-        <Image
-          alt={collection.image.altText || collection.title}
-          aspectRatio="1/1"
-          data={collection.image}
-          loading={index < 3 ? 'eager' : undefined}
-        />
-      )}
-      <h5>{collection.title}</h5>
-    </Link>
+    <div className="collection-item__wrapper">
+      <Link
+        className="collection-item"
+        key={collection.id}
+        to={`/collections/${collection.handle}`}
+        prefetch="intent"
+      >
+        {collection?.image && (
+          <Image
+            alt={collection.image.altText || collection.title}
+            aspectRatio="1/1"
+            data={collection.image}
+            loading={index < 3 ? 'eager' : undefined}
+          />
+        )}
+
+        <h5>{collection.title}</h5>
+      </Link>
+    </div>
   );
 }
 
