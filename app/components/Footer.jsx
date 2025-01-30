@@ -15,7 +15,7 @@ export function Footer({footer: footerPromise, header, publicStoreDomain}) {
               {/* Newsletter Signup section */}
               <div className="max-w-xl mx-auto">
                 <p className="text-sm text-white font-medium text-[12.5px] mb-6 text-center tracking-[0.25px]">
-                  Sign up below for updates about the world of Ninety Percent,
+                  Sign up below for updates about the world of Hydrogen Shop,
                   including collection launches, early access and 10% off your
                   first order.
                 </p>
@@ -38,7 +38,7 @@ export function Footer({footer: footerPromise, header, publicStoreDomain}) {
             {/* Footer Bottom section */}
             <div className="flex justify-between items-center mt-20 mx-28">
               <p className="text-sm text-white font-medium text-[12.5px] mb-6 text-center tracking-[0.25px] m-o">
-                Copyright © {new Date().getFullYear()} Ninety Percent
+                Copyright © {new Date().getFullYear()} Hydrogen Shop
               </p>
 
               <NavLink
@@ -47,14 +47,14 @@ export function Footer({footer: footerPromise, header, publicStoreDomain}) {
                 className="tracking-wider text-center"
               >
                 <h1 className="font-medium text-lg text-white sm:text-2xl">
-                  90 PERCENT
+                  HYDROGEN SHOP
                 </h1>
               </NavLink>
 
               <div className="flex">
                 <NavLink
                   prefetch="intent"
-                  to="https://www.instagram.com/ninety_percent/"
+                  to="https://www.instagram.com/hydrogen_shop/"
                   className="mx-5"
                 >
                   <Instagram className="w-5 y-5 text-white" />
@@ -62,7 +62,7 @@ export function Footer({footer: footerPromise, header, publicStoreDomain}) {
 
                 <NavLink
                   prefetch="intent"
-                  to="https://www.facebook.com/ninetypercentlabel/"
+                  to="https://www.facebook.com/hydrogenshop/"
                 >
                   <Facebook className="w-5 y-5 text-white" />
                 </NavLink>
