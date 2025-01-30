@@ -100,7 +100,7 @@ export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
                 isScrolled ? 'text-xl sm:text-2xl' : 'text-2xl sm:text-[28px]'
               }`}
             >
-              <h1 className="font-medium text-lg sm:text-2xl">90 PERCENT</h1>
+              <h1 className="font-medium text-lg sm:text-2xl">HYDROGEN SHOP</h1>
             </NavLink>
 
             {/* CTAS */}
